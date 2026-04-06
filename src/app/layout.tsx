@@ -7,6 +7,9 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ruta-colombia.com'),
+  other: {
+    'google-adsense-account': 'ca-pub-2469196723812841',
+  },
   title: {
     default: 'Ruta Colombia — Your Definitive Guide to Living in Colombia',
     template: '%s | Ruta Colombia',

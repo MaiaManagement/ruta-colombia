@@ -75,6 +75,13 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Top banner ad — below hero */}
+      <div className="bg-white border-b border-gray-100 py-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AdSense slot="homepage-top-banner" format="auto" />
+        </div>
+      </div>
+
       {/* City Selector Strip */}
       <section className="bg-gray-950 text-white border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

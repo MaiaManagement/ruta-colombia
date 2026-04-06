@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import AdSense from '@/components/AdSense';
 import { categories } from '@/lib/categories';
 import { cities } from '@/lib/cities';
 
@@ -10,14 +11,7 @@ export default function Footer() {
       {/* Ad slot */}
       <div className="bg-gray-900 py-4 text-center border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4">
-          <ins
-            className="adsbygoogle"
-            style={{ display: 'block' }}
-            data-ad-client="ca-pub-2469196723812841"
-            data-ad-slot="footer-slot"
-            data-ad-format="horizontal"
-            data-full-width-responsive="true"
-          />
+          <AdSense slot="footer-leaderboard" format="horizontal" />
         </div>
       </div>
 
