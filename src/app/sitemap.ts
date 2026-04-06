@@ -1,24 +1,35 @@
 import { MetadataRoute } from 'next';
-import { getAllArticles } from '@/lib/articles';
+import { getAllArticlesByCity } from '@/lib/articles';
 import { categories } from '@/lib/categories';
+import { cities } from '@/lib/cities';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://santamartainsider.com';
+  const baseUrl = 'https://thecolombianinsider.com';
 
-  const articles = getAllArticles();
-  const articleUrls = articles.map((article) => ({
-    url: `${baseUrl}/${article.category}/${article.slug}/`,
-    lastModified: new Date(article.date),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
-
-  const categoryUrls = categories.map((cat) => ({
-    url: `${baseUrl}/${cat.slug}/`,
+  const cityUrls = cities.map((city) => ({
+    url: `${baseUrl}/${city.slug}/`,
     lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
+    changeFrequency: 'daily' as const,
+    priority: 0.9,
   }));
+
+  const cityCategoryUrls = cities.flatMap((city) =>
+    categories.map((cat) => ({
+      url: `${baseUrl}/${city.slug}/${cat.slug}/`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }))
+  );
+
+  const articleUrls = cities.flatMap((city) =>
+    getAllArticlesByCity(city.slug).map((article) => ({
+      url: `${baseUrl}/${city.slug}/${article.category}/${article.slug}/`,
+      lastModified: new Date(article.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }))
+  );
 
   return [
     {
@@ -39,7 +50,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
-    ...categoryUrls,
+    ...cityUrls,
+    ...cityCategoryUrls,
     ...articleUrls,
   ];
 }

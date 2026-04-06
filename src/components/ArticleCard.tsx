@@ -9,7 +9,7 @@ interface ArticleCardProps {
 
 export default function ArticleCard({ article, variant = 'default' }: ArticleCardProps) {
   const cat = getCategoryBySlug(article.category);
-  const href = `/${article.category}/${article.slug}/`;
+  const href = `/${article.city}/${article.category}/${article.slug}/`;
 
   if (variant === 'featured') {
     return (
@@ -27,9 +27,9 @@ export default function ArticleCard({ article, variant = 'default' }: ArticleCar
             {article.excerpt}
           </p>
           <div className="flex items-center gap-3 text-xs text-gray-400">
-            <span>{new Date(article.date).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+            <span>{new Date(article.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
             <span>·</span>
-            <span>{article.readingTime} lectura</span>
+            <span>{article.readingTime} read</span>
           </div>
         </div>
       </Link>
@@ -49,7 +49,7 @@ export default function ArticleCard({ article, variant = 'default' }: ArticleCar
           <h3 className="font-semibold text-gray-900 group-hover:text-teal-700 transition-colors text-sm mt-0.5 leading-snug line-clamp-2">
             {article.title}
           </h3>
-          <span className="text-xs text-gray-400 mt-1 block">{article.readingTime} lectura</span>
+          <span className="text-xs text-gray-400 mt-1 block">{article.readingTime} read</span>
         </div>
       </Link>
     );
@@ -76,9 +76,9 @@ export default function ArticleCard({ article, variant = 'default' }: ArticleCar
           {article.excerpt}
         </p>
         <div className="flex items-center gap-3 text-xs text-gray-400">
-          <span>{new Date(article.date).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+          <span>{new Date(article.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
           <span>·</span>
-          <span>{article.readingTime} lectura</span>
+          <span>{article.readingTime} read</span>
         </div>
       </div>
     </Link>
