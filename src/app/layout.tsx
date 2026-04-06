@@ -6,10 +6,10 @@ import { WebSiteSchema } from '@/components/SchemaOrg';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://thecolombianinsider.com'),
+  metadataBase: new URL('https://ruta-colombia.com'),
   title: {
-    default: 'The Colombian Insider — Your Definitive Guide to Living in Colombia',
-    template: '%s | The Colombian Insider',
+    default: 'Ruta Colombia — Your Definitive Guide to Living in Colombia',
+    template: '%s | Ruta Colombia',
   },
   description:
     'Your definitive guide to living, working, investing, and exploring Colombia. Expert local coverage of Medellín, Santa Marta, and beyond — for expats, digital nomads, investors, and tourists.',
@@ -24,21 +24,21 @@ export const metadata: Metadata = {
     'real estate Colombia',
     'Colombia travel guide',
   ],
-  authors: [{ name: 'The Colombian Insider' }],
+  authors: [{ name: 'Ruta Colombia' }],
   creator: 'The Maia Group',
-  publisher: 'The Colombian Insider',
+  publisher: 'Ruta Colombia',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://thecolombianinsider.com',
-    siteName: 'The Colombian Insider',
-    title: 'The Colombian Insider — Your Definitive Guide to Living in Colombia',
+    url: 'https://ruta-colombia.com',
+    siteName: 'Ruta Colombia',
+    title: 'Ruta Colombia — Your Definitive Guide to Living in Colombia',
     description:
       'Expert guides on real estate, legal, food, jobs, and lifestyle across Colombia — written by local professionals.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Colombian Insider',
+    title: 'Ruta Colombia',
     description: 'Your definitive guide to living in Colombia.',
   },
   robots: {

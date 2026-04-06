@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${cat.name} in ${city.name}`,
     description: `${cat.description} — Expert guides for ${city.name}, Colombia.`,
     openGraph: {
-      title: `${cat.name} in ${city.name} | The Colombian Insider`,
+      title: `${cat.name} in ${city.name} | Ruta Colombia`,
       description: cat.description,
     },
   };

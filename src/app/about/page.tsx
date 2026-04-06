@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'About The Colombian Insider',
+  title: 'About Ruta Colombia',
   description:
-    'The Colombian Insider is the digital content hub of The Maia Group — your trusted source for everything you need to live, work, invest, and explore Colombia.',
+    'Ruta Colombia is the digital content hub of The Maia Group — your trusted source for everything you need to live, work, invest, and explore Colombia.',
 };
 
 export default function AboutPage() {
@@ -15,7 +15,7 @@ export default function AboutPage() {
 
       <div className="prose max-w-none text-gray-700">
         <p>
-          <strong>The Colombian Insider</strong> is the digital content hub of{' '}
+          <strong>Ruta Colombia</strong> is the digital content hub of{' '}
           <a href="https://the-maia-group.com" target="_blank" rel="noopener noreferrer">
             The Maia Group
           </a>{' '}
@@ -52,7 +52,7 @@ export default function AboutPage() {
 
         <h2>The Maia Group ecosystem</h2>
         <p>
-          The Colombian Insider is part of The Maia Group's network of companies operating across Colombia:
+          Ruta Colombia is part of The Maia Group's network of companies operating across Colombia:
         </p>
         <ul>
           <li>

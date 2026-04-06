@@ -4,7 +4,7 @@ import { categories } from '@/lib/categories';
 import { cities } from '@/lib/cities';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://thecolombianinsider.com';
+  const baseUrl = 'https://ruta-colombia.com';
 
   const cityUrls = cities.map((city) => ({
     url: `${baseUrl}/${city.slug}/`,

@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${city.name} Guide — Expat, Real Estate, Legal & More`,
     description: `Your complete guide to living in ${city.name}, Colombia. Real estate, legal, food, jobs, and lifestyle — for expats, digital nomads, and investors.`,
     openGraph: {
-      title: `${city.name} Guide | The Colombian Insider`,
+      title: `${city.name} Guide | Ruta Colombia`,
       description: city.description,
     },
   };

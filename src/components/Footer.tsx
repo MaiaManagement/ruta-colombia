@@ -121,7 +121,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-gray-500">
-            © {year} The Colombian Insider — The Maia Group. All rights reserved.
+            © {year} Ruta Colombia — The Maia Group. All rights reserved.
           </p>
           <div className="flex gap-4 text-xs text-gray-500">
             <Link href="/about/" className="hover:text-gray-400 transition-colors">Privacy Policy</Link>

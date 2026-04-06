@@ -20,10 +20,10 @@ export function ArticleSchema({ title, description, datePublished, author, url, 
     },
     publisher: {
       '@type': 'Organization',
-      name: 'The Colombian Insider',
+      name: 'Ruta Colombia',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://thecolombianinsider.com/logo.png',
+        url: 'https://ruta-colombia.com/logo.png',
       },
     },
     mainEntityOfPage: {
@@ -46,10 +46,10 @@ export function WebSiteSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'The Colombian Insider',
+    name: 'Ruta Colombia',
     description:
       'Your definitive guide to living, working, investing, and exploring Colombia. Expert coverage of Medellín, Santa Marta, and beyond.',
-    url: 'https://thecolombianinsider.com',
+    url: 'https://ruta-colombia.com',
     inLanguage: 'en',
     publisher: {
       '@type': 'Organization',
@@ -58,7 +58,7 @@ export function WebSiteSchema() {
     },
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://thecolombianinsider.com/search?q={search_term_string}',
+      target: 'https://ruta-colombia.com/search?q={search_term_string}',
       'query-input': 'required name=search_term_string',
     },
   };

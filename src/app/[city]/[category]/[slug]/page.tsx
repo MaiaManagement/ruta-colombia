@@ -54,7 +54,7 @@ export default function ArticlePage({ params }: Props) {
     .filter((a) => a.slug !== article.slug)
     .slice(0, 3);
 
-  const articleUrl = `https://thecolombianinsider.com/${params.city}/${article.category}/${article.slug}/`;
+  const articleUrl = `https://ruta-colombia.com/${params.city}/${article.category}/${article.slug}/`;
 
   return (
     <>

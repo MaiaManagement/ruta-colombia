@@ -185,9 +185,9 @@ export default function HomePage() {
       {/* About strip */}
       <section className="bg-gray-950 text-white py-14">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-serif text-2xl font-bold mb-3">About The Colombian Insider</h2>
+          <h2 className="font-serif text-2xl font-bold mb-3">About Ruta Colombia</h2>
           <p className="text-gray-400 leading-relaxed mb-6">
-            The Colombian Insider is the digital content hub of{' '}
+            Ruta Colombia is the digital content hub of{' '}
             <a href="https://the-maia-group.com" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300">
               The Maia Group
             </a>

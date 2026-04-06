@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Get in touch with The Colombian Insider for collaborations, advertising, content corrections, or general enquiries.',
+    'Get in touch with Ruta Colombia for collaborations, advertising, content corrections, or general enquiries.',
 };
 
 export default function ContactPage() {
