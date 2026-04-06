@@ -20,10 +20,10 @@ export function ArticleSchema({ title, description, datePublished, author, url, 
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Santa Marta Insider',
+      name: 'The Colombian Insider',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://santamartainsider.com/logo.png',
+        url: 'https://thecolombianinsider.com/logo.png',
       },
     },
     mainEntityOfPage: {
@@ -31,7 +31,7 @@ export function ArticleSchema({ title, description, datePublished, author, url, 
       '@id': url,
     },
     articleSection: category,
-    inLanguage: 'es-CO',
+    inLanguage: 'en',
   };
 
   return (
@@ -46,10 +46,11 @@ export function WebSiteSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Santa Marta Insider',
-    description: 'Tu guía definitiva del Caribe colombiano. Noticias, guías y recursos para vivir, invertir y disfrutar Santa Marta.',
-    url: 'https://santamartainsider.com',
-    inLanguage: 'es-CO',
+    name: 'The Colombian Insider',
+    description:
+      'Your definitive guide to living, working, investing, and exploring Colombia. Expert coverage of Medellín, Santa Marta, and beyond.',
+    url: 'https://thecolombianinsider.com',
+    inLanguage: 'en',
     publisher: {
       '@type': 'Organization',
       name: 'The Maia Group',
@@ -57,7 +58,7 @@ export function WebSiteSchema() {
     },
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://santamartainsider.com/search?q={search_term_string}',
+      target: 'https://thecolombianinsider.com/search?q={search_term_string}',
       'query-input': 'required name=search_term_string',
     },
   };

@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contacto',
-  description: 'Escríbenos para colaboraciones, publicidad o preguntas sobre Santa Marta y Colombia.',
+  title: 'Contact',
+  description:
+    'Get in touch with The Colombian Insider for collaborations, advertising, content corrections, or general enquiries.',
 };
 
 export default function ContactPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-      <h1 className="font-serif text-4xl font-bold text-gray-900 mb-4">Contacto</h1>
+      <h1 className="font-serif text-4xl font-bold text-gray-900 mb-4">Contact</h1>
       <div className="w-16 h-1 bg-teal-500 mb-8 rounded-full" />
 
       <p className="text-gray-600 text-lg mb-10">
-        ¿Tienes una pregunta, propuesta de colaboración o quieres anunciar con nosotros? Escríbenos.
+        Have a question, collaboration proposal, or want to advertise with us? We would love to hear from you.
       </p>
 
       <form
@@ -26,7 +27,7 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5" htmlFor="name">
-              Nombre
+              Name
             </label>
             <input
               type="text"
@@ -34,7 +35,7 @@ export default function ContactPage() {
               name="name"
               required
               className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-              placeholder="Tu nombre"
+              placeholder="Your name"
             />
           </div>
           <div>
@@ -47,31 +48,31 @@ export default function ContactPage() {
               name="email"
               required
               className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-              placeholder="tu@email.com"
+              placeholder="you@email.com"
             />
           </div>
         </div>
 
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1.5" htmlFor="subject">
-            Asunto
+            Subject
           </label>
           <select
             id="subject"
             name="subject"
             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
           >
-            <option value="">Selecciona un asunto</option>
-            <option value="publicidad">Publicidad / Patrocinio</option>
-            <option value="colaboracion">Colaboración editorial</option>
-            <option value="correccion">Corrección de contenido</option>
-            <option value="otro">Otro</option>
+            <option value="">Select a subject</option>
+            <option value="advertising">Advertising / Sponsorship</option>
+            <option value="collaboration">Editorial collaboration</option>
+            <option value="correction">Content correction</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1.5" htmlFor="message">
-            Mensaje
+            Message
           </label>
           <textarea
             id="message"
@@ -79,7 +80,7 @@ export default function ContactPage() {
             rows={5}
             required
             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent resize-none"
-            placeholder="Cuéntanos cómo podemos ayudarte..."
+            placeholder="Tell us how we can help..."
           />
         </div>
 
@@ -87,7 +88,7 @@ export default function ContactPage() {
           type="submit"
           className="bg-teal-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors"
         >
-          Enviar mensaje
+          Send message
         </button>
       </form>
     </div>

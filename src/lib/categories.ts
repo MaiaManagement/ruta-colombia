@@ -1,7 +1,6 @@
 export interface Category {
   slug: string;
   name: string;
-  nameEs: string;
   description: string;
   maia_brand: {
     name: string;
@@ -16,12 +15,11 @@ export const categories: Category[] = [
   {
     slug: 'real-estate',
     name: 'Real Estate',
-    nameEs: 'Bienes Raíces',
-    description: 'Guías de propiedades, barrios e inversión inmobiliaria en Santa Marta y Colombia.',
+    description: 'Property guides, neighborhood breakdowns, and investment insights across Colombia.',
     maia_brand: {
       name: 'Maia Realty',
       url: 'https://maia-realty.com',
-      tagline: 'Encuentra tu propiedad ideal en Santa Marta',
+      tagline: 'Find your ideal property in Colombia with Maia Realty',
       color: '#1e40af',
       bgColor: '#eff6ff',
     },
@@ -29,12 +27,11 @@ export const categories: Category[] = [
   {
     slug: 'legal',
     name: 'Legal',
-    nameEs: 'Legal',
-    description: 'Todo sobre visas, residencia, derecho colombiano y trámites legales.',
+    description: 'Visas, residency, Colombian law, and practical legal guidance for expats and investors.',
     maia_brand: {
       name: 'Maia Legal',
       url: 'https://maia-legal.com',
-      tagline: 'Asesoría legal experta para vivir e invertir en Colombia',
+      tagline: 'Expert legal counsel for living and investing in Colombia',
       color: '#1e3a5f',
       bgColor: '#f0f4f8',
     },
@@ -42,12 +39,11 @@ export const categories: Category[] = [
   {
     slug: 'food-drink',
     name: 'Food & Drink',
-    nameEs: 'Gastronomía',
-    description: 'Los mejores restaurantes, bares y experiencias gastronómicas de Santa Marta.',
+    description: 'The best restaurants, bars, cafés, and food experiences across Colombian cities.',
     maia_brand: {
       name: 'Be Vida Botánicas',
       url: 'https://bevidabotanicas.com',
-      tagline: 'Cócteles RTD artesanales — sabores tropicales de Colombia',
+      tagline: 'Artisan RTD cocktails — tropical flavors of Colombia',
       color: '#14532d',
       bgColor: '#f0fdf4',
     },
@@ -55,12 +51,11 @@ export const categories: Category[] = [
   {
     slug: 'jobs',
     name: 'Jobs & Careers',
-    nameEs: 'Empleos',
-    description: 'Oportunidades laborales, emprendimiento y vida profesional en Santa Marta.',
+    description: 'Job opportunities, remote work, entrepreneurship, and professional life in Colombia.',
     maia_brand: {
       name: 'LlevaLleva',
       url: 'https://llevalleva.co',
-      tagline: 'El marketplace de Colombia — compra, vende, encuentra trabajo',
+      tagline: "Colombia's marketplace — buy, sell, and find work",
       color: '#7c3aed',
       bgColor: '#faf5ff',
     },
@@ -68,12 +63,11 @@ export const categories: Category[] = [
   {
     slug: 'marine',
     name: 'Marine',
-    nameEs: 'Marina',
-    description: 'Náutica, buceo, surf y todo lo relacionado con el mar en Santa Marta.',
+    description: 'Sailing, diving, surfing, and everything ocean-related in Colombia.',
     maia_brand: {
       name: 'Mapaná Marine',
       url: 'https://mapana-marine.com',
-      tagline: 'Servicios náuticos profesionales en el Caribe colombiano',
+      tagline: 'Professional nautical services on the Colombian Caribbean',
       color: '#0c4a6e',
       bgColor: '#f0f9ff',
     },
@@ -81,12 +75,11 @@ export const categories: Category[] = [
   {
     slug: 'things-to-do',
     name: 'Things to Do',
-    nameEs: 'Qué Hacer',
-    description: 'Atracciones, actividades, turismo y experiencias únicas en Santa Marta.',
+    description: 'Attractions, day trips, experiences, and activities across Colombia.',
     maia_brand: {
       name: 'LlevaLleva',
       url: 'https://llevalleva.co',
-      tagline: 'Descubre servicios y experiencias locales en Santa Marta',
+      tagline: 'Discover local services and experiences in Colombia',
       color: '#7c3aed',
       bgColor: '#faf5ff',
     },
@@ -94,12 +87,11 @@ export const categories: Category[] = [
   {
     slug: 'community',
     name: 'Community',
-    nameEs: 'Comunidad',
-    description: 'Noticias locales, eventos y vida comunitaria en Santa Marta.',
+    description: 'Local news, events, expat groups, and community life across Colombia.',
     maia_brand: {
       name: 'LlevaLleva',
       url: 'https://llevalleva.co',
-      tagline: 'Conecta con tu comunidad local en LlevaLleva',
+      tagline: 'Connect with your local community on LlevaLleva',
       color: '#7c3aed',
       bgColor: '#faf5ff',
     },

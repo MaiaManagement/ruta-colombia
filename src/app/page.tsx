@@ -1,35 +1,88 @@
 import Link from 'next/link';
 import ArticleCard from '@/components/ArticleCard';
-import { getAllArticles, getFeaturedArticles } from '@/lib/articles';
+import { getAllArticlesByCity, getFeaturedArticlesByCity, getAllArticles } from '@/lib/articles';
 import { categories } from '@/lib/categories';
+import { cities } from '@/lib/cities';
 import AdSense from '@/components/AdSense';
 
 export default function HomePage() {
-  const allArticles = getAllArticles();
-  const featuredArticles = getFeaturedArticles();
-  const latestArticles = allArticles.slice(0, 6);
+  const medellinArticles = getAllArticlesByCity('medellin');
+  const medellinFeatured = getFeaturedArticlesByCity('medellin');
+  const santaMartaFeatured = getFeaturedArticlesByCity('santa-marta');
+  const latestAll = getAllArticles().slice(0, 6);
 
   return (
     <>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-teal-700 via-teal-600 to-teal-500 text-white py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            Tu guía definitiva del<br />
-            <span className="text-teal-200">Caribe colombiano</span>
+      {/* Hero — Medellín primary */}
+      <section className="relative bg-gradient-to-br from-violet-950 via-violet-800 to-violet-600 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-300 via-transparent to-transparent" />
+        <div className="relative max-w-5xl mx-auto px-4 py-20 text-center">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium text-violet-200 mb-6">
+            <span className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
+            Featured City: Medellín, Colombia
+          </div>
+          <h1 className="font-serif text-5xl md:text-6xl font-bold mb-5 leading-tight">
+            Your definitive guide to<br />
+            <span className="text-teal-300">living in Colombia</span>
           </h1>
-          <p className="text-teal-100 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Todo lo que necesitas saber sobre vivir, trabajar, invertir y disfrutar Santa Marta — escrito por expertos locales.
+          <p className="text-violet-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+            Expert local coverage of real estate, legal, food, jobs, and lifestyle — for expats, digital nomads, investors, and tourists.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 mt-8">
-            {categories.slice(0, 4).map((cat) => (
+
+          {/* CTA row */}
+          <div className="flex flex-wrap justify-center gap-3 mb-10">
+            <Link
+              href="/medellin/"
+              className="bg-teal-500 hover:bg-teal-400 text-white font-semibold px-6 py-3 rounded-full transition-colors shadow-lg"
+            >
+              Explore Medellín →
+            </Link>
+            <Link
+              href="/santa-marta/"
+              className="bg-white/15 hover:bg-white/25 text-white font-medium px-6 py-3 rounded-full transition-colors backdrop-blur-sm"
+            >
+              Santa Marta
+            </Link>
+          </div>
+
+          {/* Quick category links */}
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.slice(0, 5).map((cat) => (
               <Link
                 key={cat.slug}
-                href={`/${cat.slug}/`}
-                className="bg-white/20 hover:bg-white/30 text-white text-sm font-medium px-4 py-2 rounded-full transition-colors backdrop-blur-sm"
+                href={`/medellin/${cat.slug}/`}
+                className="bg-white/10 hover:bg-white/20 text-violet-200 text-xs font-medium px-3 py-1.5 rounded-full transition-colors backdrop-blur-sm"
               >
                 {cat.name}
               </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* City Selector Strip */}
+      <section className="bg-gray-950 text-white border-b border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-1 py-3 overflow-x-auto">
+            <span className="text-xs text-gray-500 font-semibold uppercase tracking-wider mr-3 shrink-0">Pick a city:</span>
+            {cities.map((city) => (
+              <Link
+                key={city.slug}
+                href={`/${city.slug}/`}
+                className="shrink-0 flex flex-col items-start px-5 py-2 rounded-lg border border-gray-700 hover:border-teal-500 hover:bg-gray-900 transition-all group"
+              >
+                <span className="text-sm font-semibold text-white group-hover:text-teal-400 transition-colors">{city.name}</span>
+                <span className="text-xs text-gray-500">{city.tagline}</span>
+              </Link>
+            ))}
+            {['Cartagena', 'Bogotá', 'Cali'].map((name) => (
+              <div
+                key={name}
+                className="shrink-0 flex flex-col items-start px-5 py-2 rounded-lg border border-gray-800 opacity-40 cursor-not-allowed"
+              >
+                <span className="text-sm font-semibold text-gray-400">{name}</span>
+                <span className="text-xs text-gray-600">Coming soon</span>
+              </div>
             ))}
           </div>
         </div>
@@ -42,15 +95,21 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Featured Articles */}
-      {featuredArticles.length > 0 && (
+      {/* Medellín Featured Articles */}
+      {medellinFeatured.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center gap-3 mb-6">
-            <h2 className="font-serif text-2xl font-bold text-gray-900">Artículos destacados</h2>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 bg-violet-600 rounded-full" />
+              <h2 className="font-serif text-2xl font-bold text-gray-900">Featured: Medellín</h2>
+            </div>
             <div className="h-px flex-1 bg-gray-200" />
+            <Link href="/medellin/" className="text-sm text-teal-600 hover:text-teal-700 font-medium whitespace-nowrap">
+              All Medellín →
+            </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredArticles.map((article) => (
+            {medellinFeatured.map((article) => (
               <ArticleCard key={article.slug} article={article} variant="featured" />
             ))}
           </div>
@@ -61,14 +120,14 @@ export default function HomePage() {
       <section className="bg-white py-12 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-6">
-            <h2 className="font-serif text-2xl font-bold text-gray-900">Explorar categorías</h2>
+            <h2 className="font-serif text-2xl font-bold text-gray-900">Explore by Category</h2>
             <div className="h-px flex-1 bg-gray-200" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
-                href={`/${cat.slug}/`}
+                href={`/medellin/${cat.slug}/`}
                 className="group p-4 rounded-xl border border-gray-200 hover:border-teal-400 hover:shadow-sm transition-all text-center"
               >
                 <div
@@ -84,15 +143,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Latest articles */}
+      {/* Santa Marta Featured */}
+      {santaMartaFeatured.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 bg-teal-600 rounded-full" />
+              <h2 className="font-serif text-2xl font-bold text-gray-900">Featured: Santa Marta</h2>
+            </div>
+            <div className="h-px flex-1 bg-gray-200" />
+            <Link href="/santa-marta/" className="text-sm text-teal-600 hover:text-teal-700 font-medium whitespace-nowrap">
+              All Santa Marta →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {santaMartaFeatured.slice(0, 3).map((article) => (
+              <ArticleCard key={article.slug} article={article} variant="featured" />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Latest across Colombia */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex items-center gap-3 mb-6">
-          <h2 className="font-serif text-2xl font-bold text-gray-900">Últimos artículos</h2>
+          <h2 className="font-serif text-2xl font-bold text-gray-900">Latest from Colombia</h2>
           <div className="h-px flex-1 bg-gray-200" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {latestArticles.map((article) => (
-            <ArticleCard key={article.slug} article={article} />
+          {latestAll.map((article) => (
+            <ArticleCard key={`${article.city}-${article.slug}`} article={article} />
           ))}
         </div>
       </section>
@@ -103,17 +183,21 @@ export default function HomePage() {
       </div>
 
       {/* About strip */}
-      <section className="bg-teal-50 border-t border-teal-100 py-12">
+      <section className="bg-gray-950 text-white py-14">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-serif text-2xl font-bold text-teal-900 mb-3">Sobre Santa Marta Insider</h2>
-          <p className="text-teal-700 leading-relaxed mb-6">
-            Santa Marta Insider es la guía digital de The Maia Group para el Caribe colombiano. Combinamos el conocimiento local con experiencia profesional en bienes raíces, derecho, gastronomía y más.
+          <h2 className="font-serif text-2xl font-bold mb-3">About The Colombian Insider</h2>
+          <p className="text-gray-400 leading-relaxed mb-6">
+            The Colombian Insider is the digital content hub of{' '}
+            <a href="https://the-maia-group.com" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300">
+              The Maia Group
+            </a>
+            . We combine on-the-ground expertise with professional knowledge in real estate, law, gastronomy, and more — to help you live, invest, and thrive in Colombia.
           </p>
           <Link
             href="/about/"
-            className="inline-block bg-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors"
+            className="inline-block bg-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-500 transition-colors"
           >
-            Conoce más →
+            Learn more →
           </Link>
         </div>
       </section>

@@ -6,28 +6,40 @@ import { WebSiteSchema } from '@/components/SchemaOrg';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://santamartainsider.com'),
+  metadataBase: new URL('https://thecolombianinsider.com'),
   title: {
-    default: 'Santa Marta Insider — Tu guía del Caribe colombiano',
-    template: '%s | Santa Marta Insider',
+    default: 'The Colombian Insider — Your Definitive Guide to Living in Colombia',
+    template: '%s | The Colombian Insider',
   },
-  description: 'Tu guía definitiva del Caribe colombiano. Guías de viaje, bienes raíces, gastronomía, legal y más sobre Santa Marta, Colombia.',
-  keywords: ['Santa Marta', 'Colombia', 'Caribe', 'guía', 'bienes raíces', 'turismo', 'vida en Colombia'],
-  authors: [{ name: 'Santa Marta Insider' }],
+  description:
+    'Your definitive guide to living, working, investing, and exploring Colombia. Expert local coverage of Medellín, Santa Marta, and beyond — for expats, digital nomads, investors, and tourists.',
+  keywords: [
+    'Colombia',
+    'Medellín',
+    'Santa Marta',
+    'expat Colombia',
+    'digital nomad Colombia',
+    'invest in Colombia',
+    'living in Colombia',
+    'real estate Colombia',
+    'Colombia travel guide',
+  ],
+  authors: [{ name: 'The Colombian Insider' }],
   creator: 'The Maia Group',
-  publisher: 'Santa Marta Insider',
+  publisher: 'The Colombian Insider',
   openGraph: {
     type: 'website',
-    locale: 'es_CO',
-    url: 'https://santamartainsider.com',
-    siteName: 'Santa Marta Insider',
-    title: 'Santa Marta Insider — Tu guía del Caribe colombiano',
-    description: 'Tu guía definitiva del Caribe colombiano. Guías de viaje, bienes raíces, gastronomía, legal y más.',
+    locale: 'en_US',
+    url: 'https://thecolombianinsider.com',
+    siteName: 'The Colombian Insider',
+    title: 'The Colombian Insider — Your Definitive Guide to Living in Colombia',
+    description:
+      'Expert guides on real estate, legal, food, jobs, and lifestyle across Colombia — written by local professionals.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Santa Marta Insider',
-    description: 'Tu guía definitiva del Caribe colombiano.',
+    title: 'The Colombian Insider',
+    description: 'Your definitive guide to living in Colombia.',
   },
   robots: {
     index: true,
@@ -48,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="en">
       <head>
         <WebSiteSchema />
         <link rel="icon" href="/favicon.ico" />

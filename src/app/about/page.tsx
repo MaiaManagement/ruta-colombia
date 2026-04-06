@@ -2,75 +2,95 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Acerca de Santa Marta Insider',
-  description: 'Santa Marta Insider es la guía digital de The Maia Group para el Caribe colombiano.',
+  title: 'About The Colombian Insider',
+  description:
+    'The Colombian Insider is the digital content hub of The Maia Group — your trusted source for everything you need to live, work, invest, and explore Colombia.',
 };
 
 export default function AboutPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-      <h1 className="font-serif text-4xl font-bold text-gray-900 mb-4">Acerca de nosotros</h1>
+      <h1 className="font-serif text-4xl font-bold text-gray-900 mb-4">About us</h1>
       <div className="w-16 h-1 bg-teal-500 mb-8 rounded-full" />
 
       <div className="prose max-w-none text-gray-700">
         <p>
-          <strong>Santa Marta Insider</strong> es el hub de contenido digital de{' '}
+          <strong>The Colombian Insider</strong> is the digital content hub of{' '}
           <a href="https://the-maia-group.com" target="_blank" rel="noopener noreferrer">
             The Maia Group
           </a>{' '}
-          — tu fuente de confianza para todo lo que necesitas saber sobre vivir, trabajar, invertir y disfrutar Santa Marta y el Caribe colombiano.
+          — your trusted, English-first source for everything you need to know about living, working, investing, and exploring Colombia.
         </p>
 
         <p>
-          Nuestro equipo combina más de una década de experiencia local con profesionales en bienes raíces, derecho, gastronomía, náutica y emprendimiento. Escribimos guías detalladas, análisis de mercado y recursos prácticos para expatriados, inversores y locales por igual.
+          We cover Medellín, Santa Marta, and beyond — with expert guides on real estate, legal matters, food & drink, careers, marine lifestyle, things to do, and community life. Our content is written for expats, digital nomads, investors, and tourists who want reliable, on-the-ground knowledge.
         </p>
 
-        <h2>Nuestra misión</h2>
+        <h2>Our mission</h2>
         <p>
-          Hacer accesible el conocimiento local. Santa Marta está creciendo rápidamente como destino para vivir e invertir, pero la información confiable escasea. Estamos aquí para llenar ese vacío.
+          To make expert local knowledge accessible. Colombia is growing fast as a destination for living and investing — but reliable English-language information is scarce. We bridge that gap with guides written by professionals who live and work here.
         </p>
 
-        <h2>El ecosistema Maia Group</h2>
+        <h2>Cities we cover</h2>
+        <ul>
+          <li>
+            <Link href="/medellin/">
+              <strong>Medellín</strong>
+            </Link>{' '}
+            — Colombia's innovation capital and the top destination for expats and digital nomads.
+          </li>
+          <li>
+            <Link href="/santa-marta/">
+              <strong>Santa Marta</strong>
+            </Link>{' '}
+            — The Caribbean coast gem, with beaches, the Sierra Nevada, and a growing international scene.
+          </li>
+          <li>
+            <strong>Cartagena, Bogotá, Cali</strong> — Coming soon.
+          </li>
+        </ul>
+
+        <h2>The Maia Group ecosystem</h2>
         <p>
-          Santa Marta Insider forma parte del ecosistema de empresas de The Maia Group en Colombia:
+          The Colombian Insider is part of The Maia Group's network of companies operating across Colombia:
         </p>
         <ul>
           <li>
             <a href="https://maia-realty.com" target="_blank" rel="noopener noreferrer">
               <strong>Maia Realty</strong>
             </a>{' '}
-            — Bienes raíces y gestión de propiedades en Santa Marta
+            — Real estate and property management in Colombia
           </li>
           <li>
             <a href="https://maia-legal.com" target="_blank" rel="noopener noreferrer">
               <strong>Maia Legal</strong>
             </a>{' '}
-            — Servicios legales para vivir e invertir en Colombia
+            — Legal services for expats, investors, and businesses in Colombia
           </li>
           <li>
             <a href="https://mapana-marine.com" target="_blank" rel="noopener noreferrer">
               <strong>Mapaná Marine</strong>
             </a>{' '}
-            — Servicios náuticos en el Caribe colombiano
+            — Professional nautical services on the Colombian Caribbean
           </li>
           <li>
             <a href="https://bevidabotanicas.com" target="_blank" rel="noopener noreferrer">
               <strong>Be Vida Botánicas</strong>
             </a>{' '}
-            — Cócteles RTD artesanales de Colombia
+            — Artisan RTD cocktails made with Colombian botanicals
           </li>
           <li>
             <a href="https://llevalleva.co" target="_blank" rel="noopener noreferrer">
               <strong>LlevaLleva</strong>
             </a>{' '}
-            — El marketplace de clasificados de Colombia
+            — Colombia's classifieds and jobs marketplace
           </li>
         </ul>
 
-        <h2>Publicidad y colaboraciones</h2>
+        <h2>Advertising & partnerships</h2>
         <p>
-          Trabajamos con marcas y empresas alineadas con nuestros valores. Si te interesa publicar contenido patrocinado, anuncios o colaboraciones editoriales,{' '}
-          <Link href="/contact/">escríbenos</Link>.
+          We work with brands and businesses aligned with our values. Interested in sponsored content, advertising, or editorial collaborations?{' '}
+          <Link href="/contact/">Get in touch</Link>.
         </p>
       </div>
     </div>

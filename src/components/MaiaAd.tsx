@@ -25,7 +25,7 @@ export default function MaiaAd({ category, variant = 'inline' }: MaiaAdProps) {
             className="text-xs font-semibold uppercase tracking-widest"
             style={{ color: maia_brand.color }}
           >
-            Patrocinado por
+            Sponsored by
           </span>
           <h3 className="text-lg font-bold mt-1 mb-2" style={{ color: maia_brand.color }}>
             {maia_brand.name}
@@ -35,7 +35,7 @@ export default function MaiaAd({ category, variant = 'inline' }: MaiaAdProps) {
             className="inline-block mt-4 text-sm font-semibold px-4 py-2 rounded-full text-white transition-opacity hover:opacity-90"
             style={{ backgroundColor: maia_brand.color }}
           >
-            Visitar sitio →
+            Visit site →
           </span>
         </div>
       </a>
@@ -52,7 +52,7 @@ export default function MaiaAd({ category, variant = 'inline' }: MaiaAdProps) {
         style={{ backgroundColor: maia_brand.bgColor }}
       >
         <div className="flex-1 min-w-0">
-          <span className="text-xs text-gray-500 uppercase tracking-wider">Servicio recomendado</span>
+          <span className="text-xs text-gray-500 uppercase tracking-wider">Recommended service</span>
           <div className="flex items-center gap-3 mt-0.5">
             <span className="font-bold text-base" style={{ color: maia_brand.color }}>
               {maia_brand.name}
@@ -64,7 +64,7 @@ export default function MaiaAd({ category, variant = 'inline' }: MaiaAdProps) {
           className="shrink-0 text-sm font-semibold px-4 py-1.5 rounded-full text-white"
           style={{ backgroundColor: maia_brand.color }}
         >
-          Ver más
+          Learn more
         </span>
       </a>
     );
@@ -76,7 +76,7 @@ export default function MaiaAd({ category, variant = 'inline' }: MaiaAdProps) {
       className="my-8 p-6 rounded-2xl border border-gray-200"
       style={{ backgroundColor: maia_brand.bgColor }}
     >
-      <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Contenido patrocinado</p>
+      <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Sponsored content</p>
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <div className="flex-1">
           <h3 className="text-xl font-bold" style={{ color: maia_brand.color }}>
@@ -91,7 +91,7 @@ export default function MaiaAd({ category, variant = 'inline' }: MaiaAdProps) {
           className="inline-block shrink-0 text-sm font-semibold px-6 py-2.5 rounded-full text-white transition-opacity hover:opacity-90"
           style={{ backgroundColor: maia_brand.color }}
         >
-          Visitar {maia_brand.name} →
+          Visit {maia_brand.name} →
         </a>
       </div>
     </div>
