@@ -20,10 +20,26 @@ const santaMartaSlides = [
   { src: 'https://images.unsplash.com/photo-M7JWrcfo67k?w=1200&h=600&fit=crop&auto=format', alt: 'Sierra Nevada mountains', caption: 'Minca & the Sierra Nevada — cool mountain escape' },
 ];
 
+const bogotaSlides = [
+  { src: 'https://images.unsplash.com/photo-1Bs68YXHgT8?w=1200&h=600&fit=crop&auto=format', alt: 'Bogotá skyline', caption: 'Bogotá — Colombia\'s sprawling capital at 2,600m' },
+  { src: 'https://images.unsplash.com/photo-nBuiLbz5VGQ?w=1200&h=600&fit=crop&auto=format', alt: 'La Candelaria, Bogotá', caption: 'La Candelaria — the colourful historic heart of the city' },
+  { src: 'https://images.unsplash.com/photo-qpKVCVDYE0c?w=1200&h=600&fit=crop&auto=format', alt: 'Bogotá Zona Rosa', caption: 'Zona Rosa & Chapinero — world-class dining and nightlife' },
+  { src: 'https://images.unsplash.com/photo-1oKxSKSOowE?w=1200&h=600&fit=crop&auto=format', alt: 'Bogotá graffiti art', caption: 'Street art capital of South America' },
+];
+
+const cartagenaSlides = [
+  { src: 'https://images.unsplash.com/photo-N_Y88TWmGwA?w=1200&h=600&fit=crop&auto=format', alt: 'Cartagena walled city', caption: 'Cartagena — a UNESCO World Heritage walled city' },
+  { src: 'https://images.unsplash.com/photo-kNJT9PRMroA?w=1200&h=600&fit=crop&auto=format', alt: 'Cartagena old town streets', caption: 'Old Town — pastel colonial streets and bougainvillea' },
+  { src: 'https://images.unsplash.com/photo-iN2BrG1BuQ4?w=1200&h=600&fit=crop&auto=format', alt: 'Cartagena Caribbean coast', caption: 'Crystal-clear Caribbean waters and island escapes' },
+  { src: 'https://images.unsplash.com/photo-R_rBpHmZrto?w=1200&h=600&fit=crop&auto=format', alt: 'Cartagena sunset', caption: 'Cartagena sunsets from the city walls' },
+];
+
 export default function HomePage() {
   const medellinArticles = getAllArticlesByCity('medellin');
   const medellinFeatured = getFeaturedArticlesByCity('medellin');
   const santaMartaFeatured = getFeaturedArticlesByCity('santa-marta');
+  const bogotaFeatured = getFeaturedArticlesByCity('bogota');
+  const cartagenaFeatured = getFeaturedArticlesByCity('cartagena');
   const latestAll = getAllArticles().slice(0, 6);
 
   return (
@@ -51,6 +67,18 @@ export default function HomePage() {
               className="bg-teal-500 hover:bg-teal-400 text-white font-semibold px-6 py-3 rounded-full transition-colors shadow-lg"
             >
               Explore Medellín →
+            </Link>
+            <Link
+              href="/bogota/"
+              className="bg-white/15 hover:bg-white/25 text-white font-medium px-6 py-3 rounded-full transition-colors backdrop-blur-sm"
+            >
+              Bogotá
+            </Link>
+            <Link
+              href="/cartagena/"
+              className="bg-white/15 hover:bg-white/25 text-white font-medium px-6 py-3 rounded-full transition-colors backdrop-blur-sm"
+            >
+              Cartagena
             </Link>
             <Link
               href="/santa-marta/"
@@ -96,15 +124,6 @@ export default function HomePage() {
                 <span className="text-sm font-semibold text-white group-hover:text-teal-400 transition-colors">{city.name}</span>
                 <span className="text-xs text-gray-500">{city.tagline}</span>
               </Link>
-            ))}
-            {['Cartagena', 'Bogotá', 'Cali'].map((name) => (
-              <div
-                key={name}
-                className="shrink-0 flex flex-col items-start px-5 py-2 rounded-lg border border-gray-800 opacity-40 cursor-not-allowed"
-              >
-                <span className="text-sm font-semibold text-gray-400">{name}</span>
-                <span className="text-xs text-gray-600">Coming soon</span>
-              </div>
             ))}
           </div>
         </div>
@@ -189,6 +208,80 @@ export default function HomePage() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* Bogotá section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 bg-blue-700 rounded-full" />
+            <h2 className="font-serif text-2xl font-bold text-gray-900">Bogotá</h2>
+          </div>
+          <div className="h-px flex-1 bg-gray-200" />
+          <Link href="/bogota/" className="text-sm text-teal-600 hover:text-teal-700 font-medium whitespace-nowrap">
+            All Bogotá →
+          </Link>
+        </div>
+        <div className="rounded-2xl overflow-hidden mb-8 shadow-md">
+          <PhotoCarousel slides={bogotaSlides} className="h-64 md:h-80" />
+        </div>
+        {bogotaFeatured.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {bogotaFeatured.slice(0, 3).map((article) => (
+              <ArticleCard key={article.slug} article={article} variant="featured" />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Cartagena section */}
+      <section className="bg-amber-50/50 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 bg-amber-600 rounded-full" />
+              <h2 className="font-serif text-2xl font-bold text-gray-900">Cartagena</h2>
+            </div>
+            <div className="h-px flex-1 bg-amber-200" />
+            <Link href="/cartagena/" className="text-sm text-teal-600 hover:text-teal-700 font-medium whitespace-nowrap">
+              All Cartagena →
+            </Link>
+          </div>
+          <div className="rounded-2xl overflow-hidden mb-8 shadow-md">
+            <PhotoCarousel slides={cartagenaSlides} className="h-64 md:h-80" />
+          </div>
+          {cartagenaFeatured.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {cartagenaFeatured.slice(0, 3).map((article) => (
+                <ArticleCard key={article.slug} article={article} variant="featured" />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* More Cities strip */}
+      <section className="bg-gray-950 text-white py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="font-serif text-xl font-bold text-white mb-5">More Colombian Cities</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { slug: 'cali', name: 'Cali', tagline: 'World Capital of Salsa', gradient: 'from-emerald-800 to-emerald-600' },
+              { slug: 'barranquilla', name: 'Barranquilla', tagline: "Colombia's Caribbean Gateway", gradient: 'from-red-800 to-red-600' },
+              { slug: 'bucaramanga', name: 'Bucaramanga', tagline: 'The City of Parks', gradient: 'from-orange-800 to-orange-600' },
+            ].map((city) => (
+              <Link
+                key={city.slug}
+                href={`/${city.slug}/`}
+                className={`group relative rounded-xl overflow-hidden bg-gradient-to-br ${city.gradient} p-6 hover:opacity-90 transition-opacity`}
+              >
+                <h3 className="font-serif text-xl font-bold text-white mb-1">{city.name}</h3>
+                <p className="text-sm text-white/70 mb-3">{city.tagline}</p>
+                <span className="text-xs font-semibold text-white/90 group-hover:text-white transition-colors">Explore →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Latest across Colombia */}

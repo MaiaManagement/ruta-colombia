@@ -53,11 +53,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              {['Cartagena', 'Bogotá', 'Cali'].map((name) => (
-                <li key={name} className="text-sm text-gray-600">
-                  {name} <span className="text-xs">(soon)</span>
-                </li>
-              ))}
             </ul>
           </div>
 

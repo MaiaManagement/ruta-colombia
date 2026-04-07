@@ -53,14 +53,6 @@ export default function Header() {
                       </div>
                     </Link>
                   ))}
-                  <div className="border-t border-gray-700 mt-1 pt-1 px-4 py-2">
-                    <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">Coming Soon</p>
-                    {['Cartagena', 'Bogotá', 'Cali'].map((name) => (
-                      <span key={name} className="block text-sm text-gray-600 py-0.5">
-                        {name}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               )}
             </div>
