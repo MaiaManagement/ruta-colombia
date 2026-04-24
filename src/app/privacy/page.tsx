@@ -4,6 +4,9 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Privacy Policy | Ruta Colombia',
   description: 'Privacy Policy for Ruta Colombia. Learn how we collect, use, and protect your personal information.',
+  alternates: {
+    canonical: 'https://ruta-colombia.com/privacy/',
+  },
 };
 
 export default function PrivacyPolicy() {

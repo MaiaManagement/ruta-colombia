@@ -2,106 +2,138 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import ArticleCard from '@/components/ArticleCard';
-import MaiaAd from '@/components/MaiaAd';
-import AdSense from '@/components/AdSense';
-import { cities, getCityBySlug } from '@/lib/cities';
-import { categories, getCategoryBySlug } from '@/lib/categories';
-import { getArticlesByCityAndCategory, getAllArticlesByCity } from '@/lib/articles';
+import { getArticlesByCityAndCategory } from '@/lib/articles';
+import { categories } from '@/lib/categories';
+import { cities } from '@/lib/cities';
 
 interface Props {
   params: { city: string; category: string };
 }
 
-export async function generateStaticParams() {
-  return cities.flatMap((city) =>
-    categories.map((cat) => ({ city: city.slug, category: cat.slug }))
-  );
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const city = getCityBySlug(params.city);
-  const cat = getCategoryBySlug(params.category);
-  if (!city || !cat) return {};
+  const category = categories.find((c) => c.slug === params.category);
+  const city = cities.find((c) => c.slug === params.city);
+
+  if (!category || !city) return {};
 
   return {
-    title: `${cat.name} in ${city.name}`,
-    description: `${cat.description} — Expert guides for ${city.name}, Colombia.`,
-    openGraph: {
-      title: `${cat.name} in ${city.name} | Ruta Colombia`,
-      description: cat.description,
+    title: `${category.name} in ${city.name}`,
+    description: `Expert guides on ${category.name.toLowerCase()} in ${city.name}, Colombia — for expats, digital nomads, and investors.`,
+    alternates: {
+      canonical: `https://ruta-colombia.com/${params.city}/${params.category}/`,
     },
   };
 }
 
-export default function CitycategoryPage({ params }: Props) {
-  const city = getCityBySlug(params.city);
-  const cat = getCategoryBySlug(params.category);
-  if (!city || !cat) notFound();
+export default function CategoryPage({ params }: Props) {
+  const { city: citySlug, category: categorySlug } = params;
 
-  const articles = getArticlesByCityAndCategory(params.city, params.category);
-  const otherArticles = getAllArticlesByCity(params.city)
-    .filter((a) => a.category !== params.category)
-    .slice(0, 5);
+  const city = cities.find((c) => c.slug === citySlug);
+  const category = categories.find((c) => c.slug === categorySlug);
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* Breadcrumb */}
-      <nav className="text-sm text-gray-500 mb-6">
-        <Link href="/" className="hover:text-teal-600">Home</Link>
-        <span className="mx-2">/</span>
-        <Link href={`/${params.city}/`} className="hover:text-teal-600">{city.name}</Link>
-        <span className="mx-2">/</span>
-        <span className="text-gray-800 font-medium">{cat.name}</span>
-      </nav>
+  // Unknown city or category — hard 404
+  if (!city || !category) {
+    notFound();
+  }
 
-      {/* Category header */}
-      <div className="mb-8 pb-8 border-b border-gray-200">
+  const articles = getArticlesByCityAndCategory(citySlug, categorySlug);
+
+  // FIX: Empty / coming-soon category pages now show a meaningful message
+  // with navigation back to the parent city page and the homepage,
+  // instead of a blank "Coming soon" screen with no affordance.
+  if (articles.length === 0) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 text-center">
+        {/* Category colour accent */}
         <div
-          className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-3"
-          style={{ backgroundColor: cat.maia_brand.bgColor, color: cat.maia_brand.color }}
-        >
-          {city.name}
+          className="w-14 h-14 rounded-full mx-auto mb-6 flex items-center justify-center"
+          style={{
+            backgroundColor: category.maia_brand.bgColor,
+            border: `3px solid ${category.maia_brand.color}`,
+          }}
+          aria-hidden="true"
+        />
+
+        <h1 className="font-serif text-3xl font-bold text-gray-900 mb-3">
+          {category.name} — {city.name}
+        </h1>
+
+        <p className="text-gray-500 text-lg mb-2">
+          <span className="font-semibold text-gray-700">Próximamente</span> — estamos trabajando en
+          este contenido.
+        </p>
+        <p className="text-gray-400 text-base mb-10">
+          Our {category.name.toLowerCase()} guides for {city.name} are being written by local
+          experts and will be published soon. Check back shortly!
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link
+            href={`/${citySlug}/`}
+            className="inline-block bg-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors"
+          >
+            ← Back to {city.name}
+          </Link>
+          <Link
+            href="/"
+            className="inline-block bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-colors"
+          >
+            Go to Homepage
+          </Link>
         </div>
-        <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-3">{cat.name}</h1>
-        <p className="text-gray-600 text-lg max-w-2xl">{cat.description}</p>
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main content */}
-        <div className="lg:col-span-2">
-          {articles.length === 0 ? (
-            <div className="text-center py-16 text-gray-500">
-              <p className="text-lg mb-2 font-semibold">Coming soon</p>
-              <p className="text-sm">We are working on {cat.name} guides for {city.name}.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {articles.map((article) => (
-                <ArticleCard key={article.slug} article={article} />
+        {/* Suggest other categories for this city */}
+        <div className="mt-14">
+          <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+            Explore other {city.name} topics
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories
+              .filter((c) => c.slug !== categorySlug)
+              .map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={`/${citySlug}/${cat.slug}/`}
+                  className="text-sm px-4 py-1.5 rounded-full border border-gray-200 text-gray-600 hover:border-teal-400 hover:text-teal-700 transition-colors"
+                >
+                  {cat.name}
+                </Link>
               ))}
-            </div>
-          )}
-
-          <div className="mt-8">
-            <AdSense slot={`category-${params.category}`} format="auto" />
           </div>
         </div>
+      </div>
+    );
+  }
 
-        {/* Sidebar */}
-        <aside className="space-y-6">
-          <MaiaAd category={params.category} variant="sidebar" />
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Category header */}
+      <div className="mb-10">
+        <div className="flex items-center gap-3 mb-2">
+          <Link href={`/${citySlug}/`} className="text-sm text-teal-700 hover:underline font-medium">
+            {city.name}
+          </Link>
+          <span className="text-gray-300">/</span>
+          <span className="text-sm text-gray-500">{category.name}</span>
+        </div>
+        <h1 className="font-serif text-4xl font-bold text-gray-900 mb-3">
+          {category.name} in {city.name}
+        </h1>
+        <div
+          className="w-16 h-1 rounded-full mb-4"
+          style={{ backgroundColor: category.maia_brand.color }}
+        />
+        <p className="text-gray-600 text-lg max-w-2xl">
+          Expert guides on {category.name.toLowerCase()} in {city.name} — written by local
+          professionals for expats, digital nomads, and investors.
+        </p>
+      </div>
 
-          {otherArticles.length > 0 && (
-            <div className="bg-white rounded-xl border border-gray-200 p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">More from {city.name}</h3>
-              {otherArticles.map((article) => (
-                <ArticleCard key={article.slug} article={article} variant="compact" />
-              ))}
-            </div>
-          )}
-
-          <AdSense slot="sidebar-rect" format="rectangle" />
-        </aside>
+      {/* Articles grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {articles.map((article) => (
+          <ArticleCard key={article.slug} article={article} />
+        ))}
       </div>
     </div>
   );

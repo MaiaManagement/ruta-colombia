@@ -29,6 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: article.metaTitle || article.title,
     description: article.metaDescription || article.excerpt,
+    alternates: {
+      canonical: `https://ruta-colombia.com/${params.city}/${params.category}/${params.slug}/`,
+    },
     openGraph: {
       title: article.metaTitle || article.title,
       description: article.metaDescription || article.excerpt,

@@ -1,60 +1,114 @@
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import ArticleCard from '@/components/ArticleCard';
-import AdSense from '@/components/AdSense';
-import { cities, getCityBySlug } from '@/lib/cities';
+import PhotoCarousel from '@/components/PhotoCarousel';
+import { getAllArticlesByCity } from '@/lib/articles';
 import { categories } from '@/lib/categories';
-import { getAllArticlesByCity, getFeaturedArticlesByCity } from '@/lib/articles';
+import { cities } from '@/lib/cities';
 
 interface Props {
   params: { city: string };
 }
 
-export async function generateStaticParams() {
-  return cities.map((c) => ({ city: c.slug }));
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const city = getCityBySlug(params.city);
+  const city = cities.find((c) => c.slug === params.city);
   if (!city) return {};
-
   return {
-    title: `${city.name} Guide — Expat, Real Estate, Legal & More`,
-    description: `Your complete guide to living in ${city.name}, Colombia. Real estate, legal, food, jobs, and lifestyle — for expats, digital nomads, and investors.`,
-    openGraph: {
-      title: `${city.name} Guide | Ruta Colombia`,
-      description: city.description,
+    title: city.name,
+    description: `Your definitive guide to living, working, and exploring ${city.name}, Colombia.`,
+    alternates: {
+      canonical: `https://ruta-colombia.com/${params.city}/`,
     },
   };
 }
 
-export default function CityHubPage({ params }: Props) {
-  const city = getCityBySlug(params.city);
+// Carousel slide data per city (kept close to the page that uses it)
+const citySlides: Record<string, { src: string; alt: string; caption: string }[]> = {
+  medellin: [
+    { src: 'https://images.unsplash.com/photo-JvZ1paoSnHc?w=1200&h=600&fit=crop&auto=format', alt: 'Medellín skyline at dusk', caption: 'Medellín — City of Eternal Spring' },
+    { src: 'https://images.unsplash.com/photo-Iqa-WlbNjqs?w=1200&h=600&fit=crop&auto=format', alt: 'El Poblado neighbourhood', caption: 'El Poblado — vibrant expat neighbourhood' },
+    { src: 'https://images.unsplash.com/photo-ScWTdlHE1b0?w=1200&h=600&fit=crop&auto=format', alt: 'Medellín cable car over the city', caption: 'World-class public transit & innovation' },
+    { src: 'https://images.unsplash.com/photo-PMYCnEgvPK0?w=1200&h=600&fit=crop&auto=format', alt: 'Medellín city lights at night', caption: 'Medellín after dark' },
+  ],
+  'santa-marta': [
+    { src: 'https://images.unsplash.com/photo-gc5OYAll-rc?w=1200&h=600&fit=crop&auto=format', alt: 'Santa Marta coastline', caption: "Santa Marta — Colombia's Caribbean gem" },
+    { src: 'https://images.unsplash.com/photo-gdtcSQi7B1E?w=1200&h=600&fit=crop&auto=format', alt: 'Tayrona National Park jungle beach', caption: 'Tayrona National Park — untouched jungle meets the sea' },
+    { src: 'https://images.unsplash.com/photo-P41tKN3uZhw?w=1200&h=600&fit=crop&auto=format', alt: 'Crystal-clear Caribbean water', caption: 'Crystal-clear Caribbean waters' },
+    { src: 'https://images.unsplash.com/photo-M7JWrcfo67k?w=1200&h=600&fit=crop&auto=format', alt: 'Sierra Nevada mountains near Minca', caption: 'Minca & the Sierra Nevada — cool mountain escape' },
+  ],
+  bogota: [
+    { src: 'https://images.unsplash.com/photo-1Bs68YXHgT8?w=1200&h=600&fit=crop&auto=format', alt: 'Bogotá skyline viewed from the mountains', caption: "Bogotá — Colombia's sprawling capital at 2,600m" },
+    { src: 'https://images.unsplash.com/photo-nBuiLbz5VGQ?w=1200&h=600&fit=crop&auto=format', alt: 'La Candelaria colourful buildings', caption: 'La Candelaria — the colourful historic heart of the city' },
+    { src: 'https://images.unsplash.com/photo-qpKVCVDYE0c?w=1200&h=600&fit=crop&auto=format', alt: 'Zona Rosa Bogotá at night', caption: 'Zona Rosa & Chapinero — world-class dining and nightlife' },
+    { src: 'https://images.unsplash.com/photo-1oKxSKSOowE?w=1200&h=600&fit=crop&auto=format', alt: 'Large-scale graffiti mural in Bogotá', caption: 'Street art capital of South America' },
+  ],
+  cartagena: [
+    { src: 'https://images.unsplash.com/photo-N_Y88TWmGwA?w=1200&h=600&fit=crop&auto=format', alt: 'Cartagena walled city aerial view', caption: 'Cartagena — a UNESCO World Heritage walled city' },
+    { src: 'https://images.unsplash.com/photo-kNJT9PRMroA?w=1200&h=600&fit=crop&auto=format', alt: 'Colourful colonial street in Cartagena old town', caption: 'Old Town — pastel colonial streets and bougainvillea' },
+    { src: 'https://images.unsplash.com/photo-iN2BrG1BuQ4?w=1200&h=600&fit=crop&auto=format', alt: 'Caribbean coast near Cartagena', caption: 'Crystal-clear Caribbean waters and island escapes' },
+    { src: 'https://images.unsplash.com/photo-R_rBpHmZrto?w=1200&h=600&fit=crop&auto=format', alt: 'Sunset over Cartagena city walls', caption: 'Cartagena sunsets from the city walls' },
+  ],
+};
+
+// Per-city theme colours for the hero gradient
+const cityTheme: Record<string, { gradient: string; accent: string }> = {
+  medellin:     { gradient: 'from-violet-950 via-violet-800 to-violet-600', accent: 'bg-violet-600' },
+  'santa-marta': { gradient: 'from-teal-950 via-teal-800 to-teal-600',   accent: 'bg-teal-600' },
+  bogota:       { gradient: 'from-blue-950 via-blue-800 to-blue-600',     accent: 'bg-blue-700' },
+  cartagena:    { gradient: 'from-amber-900 via-amber-700 to-amber-600',  accent: 'bg-amber-600' },
+};
+
+export default function CityPage({ params }: Props) {
+  const { city: citySlug } = params;
+
+  const city = cities.find((c) => c.slug === citySlug);
   if (!city) notFound();
 
-  const featured = getFeaturedArticlesByCity(params.city);
-  const latest = getAllArticlesByCity(params.city).slice(0, 6);
+  const articles = getAllArticlesByCity(citySlug);
+  const slides = citySlides[citySlug] ?? [];
+  const theme = cityTheme[citySlug] ?? { gradient: 'from-gray-900 via-gray-700 to-gray-600', accent: 'bg-gray-600' };
 
   return (
     <>
-      {/* City hero */}
-      <section className={`bg-gradient-to-br ${city.heroGradient} text-white py-16 px-4`}>
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-white/60 mb-3">{city.region}, Colombia</p>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4 leading-tight">
+      {/* ── City hero ──────────────────────────────────────────────────────────
+          FIX: White text on a deep gradient (dark-to-mid tone) achieves the
+          required WCAG AA 4.5:1 contrast.  The additional semi-transparent
+          dark overlay (bg-black/40) acts as a safety net so text is readable
+          even if a future slide image bleeds through.  No light/cream
+          backgrounds are used here.
+      ──────────────────────────────────────────────────────────────────────── */}
+      <section
+        className={`relative bg-gradient-to-br ${theme.gradient} text-white overflow-hidden`}
+      >
+        {/* Dark overlay — ensures white text contrast regardless of background */}
+        <div className="absolute inset-0 bg-black/40 z-0" aria-hidden="true" />
+
+        <div className="relative z-10 max-w-5xl mx-auto px-4 py-20 text-center">
+          <div
+            className={`inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium text-white/90 mb-6`}
+          >
+            <span className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" aria-hidden="true" />
+            {city.tagline}
+          </div>
+
+          {/* h1: white on dark overlay — contrast well above 7:1 */}
+          <h1 className="font-serif text-5xl md:text-6xl font-bold mb-5 leading-tight text-white drop-shadow-md">
             {city.name}
           </h1>
-          <p className="text-white/80 text-lg md:text-xl italic mb-4">{city.tagline}</p>
-          <p className="text-white/70 text-base max-w-2xl mx-auto leading-relaxed mb-8">
-            {city.description}
+
+          {/* Subheading: slightly transparent white still clears 4.5:1 on dark overlay */}
+          <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8 drop-shadow">
+            Your definitive local guide to living, working, and exploring {city.name}, Colombia.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.slice(0, 4).map((cat) => (
+
+          {/* Category quick-links */}
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map((cat) => (
               <Link
                 key={cat.slug}
-                href={`/${params.city}/${cat.slug}/`}
-                className="bg-white/15 hover:bg-white/25 text-white text-sm font-medium px-4 py-2 rounded-full transition-colors backdrop-blur-sm"
+                href={`/${citySlug}/${cat.slug}/`}
+                className="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-4 py-2 rounded-full transition-colors backdrop-blur-sm border border-white/20"
               >
                 {cat.name}
               </Link>
@@ -63,52 +117,74 @@ export default function CityHubPage({ params }: Props) {
         </div>
       </section>
 
-      {/* AdSense */}
-      <div className="bg-white border-b border-gray-100 py-3">
-        <div className="max-w-7xl mx-auto px-4">
-          <AdSense slot={`city-${params.city}-top`} format="horizontal" />
+      {/* ── Photo carousel ─────────────────────────────────────────────────── */}
+      {slides.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="rounded-2xl overflow-hidden shadow-md">
+            <PhotoCarousel slides={slides} className="h-64 md:h-80" />
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Breadcrumb */}
-        <nav className="text-sm text-gray-500 mb-8">
-          <Link href="/" className="hover:text-teal-600">Home</Link>
-          <span className="mx-2">/</span>
-          <span className="text-gray-800 font-medium">{city.name}</span>
-        </nav>
-
-        {/* Featured articles */}
-        {featured.length > 0 && (
-          <div className="mb-12">
+      {/* ── Articles grid ──────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {articles.length > 0 ? (
+          <>
             <div className="flex items-center gap-3 mb-6">
-              <h2 className="font-serif text-2xl font-bold text-gray-900">Featured</h2>
+              <h2 className="font-serif text-2xl font-bold text-gray-900">
+                Latest from {city.name}
+              </h2>
               <div className="h-px flex-1 bg-gray-200" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featured.map((article) => (
-                <ArticleCard key={article.slug} article={article} variant="featured" />
+              {articles.map((article) => (
+                <ArticleCard key={article.slug} article={article} />
               ))}
             </div>
+          </>
+        ) : (
+          /* FIX: Empty city pages show a meaningful message, not a blank screen */
+          <div className="text-center py-16">
+            <h2 className="font-serif text-2xl font-bold text-gray-800 mb-3">
+              Content coming soon
+            </h2>
+            <p className="text-gray-500 mb-2 text-lg">
+              <span className="font-semibold text-gray-700">Próximamente</span> — estamos trabajando
+              en este contenido.
+            </p>
+            <p className="text-gray-400 mb-8">
+              Our expert guides for {city.name} are being prepared and will be published shortly.
+            </p>
+            <Link
+              href="/"
+              className="inline-block bg-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors"
+            >
+              ← Back to Homepage
+            </Link>
           </div>
         )}
+      </section>
 
-        {/* Categories grid */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="font-serif text-2xl font-bold text-gray-900">Browse by Category</h2>
-            <div className="h-px flex-1 bg-gray-200" />
-          </div>
+      {/* ── Category browse strip ──────────────────────────────────────────── */}
+      <section className="bg-white border-t border-gray-100 py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="font-serif text-xl font-bold text-gray-900 mb-5">
+            Browse {city.name} by topic
+          </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
-                href={`/${params.city}/${cat.slug}/`}
+                href={`/${citySlug}/${cat.slug}/`}
                 className="group p-4 rounded-xl border border-gray-200 hover:border-teal-400 hover:shadow-sm transition-all text-center"
               >
                 <div
                   className="w-8 h-8 rounded-full mx-auto mb-2"
-                  style={{ backgroundColor: cat.maia_brand.bgColor, border: `2px solid ${cat.maia_brand.color}` }}
+                  style={{
+                    backgroundColor: cat.maia_brand.bgColor,
+                    border: `2px solid ${cat.maia_brand.color}`,
+                  }}
+                  aria-hidden="true"
                 />
                 <span className="text-sm font-semibold text-gray-700 group-hover:text-teal-700 block leading-tight">
                   {cat.name}
@@ -117,29 +193,7 @@ export default function CityHubPage({ params }: Props) {
             ))}
           </div>
         </div>
-
-        {/* Latest articles */}
-        {latest.length > 0 && (
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              <h2 className="font-serif text-2xl font-bold text-gray-900">Latest Articles</h2>
-              <div className="h-px flex-1 bg-gray-200" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {latest.map((article) => (
-                <ArticleCard key={article.slug} article={article} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {latest.length === 0 && featured.length === 0 && (
-          <div className="text-center py-20 text-gray-500">
-            <p className="text-lg font-semibold mb-2">Content coming soon</p>
-            <p className="text-sm">We are working on our {city.name} guides. Check back soon.</p>
-          </div>
-        )}
-      </div>
+      </section>
     </>
   );
 }

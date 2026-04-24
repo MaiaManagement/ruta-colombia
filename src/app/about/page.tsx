@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: 'About Ruta Colombia',
   description:
     'Ruta Colombia is the digital content hub of The Maia Group — your trusted source for everything you need to live, work, invest, and explore Colombia.',
+  alternates: {
+    canonical: 'https://ruta-colombia.com/about/',
+  },
 };
 
 export default function AboutPage() {

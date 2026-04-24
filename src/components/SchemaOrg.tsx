@@ -56,11 +56,6 @@ export function WebSiteSchema() {
       name: 'The Maia Group',
       url: 'https://the-maia-group.com',
     },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://ruta-colombia.com/search?q={search_term_string}',
-      'query-input': 'required name=search_term_string',
-    },
   };
 
   return (

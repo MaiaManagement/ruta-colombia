@@ -5,6 +5,73 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# ── 301 redirects for misspelled / duplicate slug variants ────────────────────
+# "medellan" typo → correct "medellin" slug
+[[redirects]]
+  from = "/medellin/real-estate/best-neighbourhoods-medellan/"
+  to   = "/medellin/real-estate/best-neighborhoods-medellin-expats/"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from = "/medellin/community/cost-of-living-medellan/"
+  to   = "/medellin/real-estate/cost-of-living-medellin-2026/"
+  status = 301
+  force  = true
+
+# British → American spelling for Cartagena neighbourhoods
+[[redirects]]
+  from = "/cartagena/real-estate/best-neighbourhoods-cartagena/"
+  to   = "/cartagena/real-estate/best-neighborhoods-cartagena/"
+  status = 301
+  force  = true
+
+# Additional "medellan" typo variants found across content files
+[[redirects]]
+  from = "/medellin/*/nightlife-medellan/"
+  to   = "/medellin/:splat"
+  status = 301
+  force  = true
+
+# British "neighbourhoods" → American "neighborhoods" for all cities
+[[redirects]]
+  from = "/medellin/real-estate/best-neighbourhoods-medellin/"
+  to   = "/medellin/real-estate/best-neighborhoods-medellin-expats/"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from = "/bogota/real-estate/best-neighbourhoods-bogota/"
+  to   = "/bogota/real-estate/best-neighborhoods-bogota-expats/"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from = "/santa-marta/real-estate/best-neighbourhoods-santa-marta/"
+  to   = "/santa-marta/real-estate/best-neighborhoods-santa-marta/"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from = "/cali/real-estate/best-neighbourhoods-cali/"
+  to   = "/cali/real-estate/best-neighborhoods-cali/"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from = "/bucaramanga/real-estate/best-neighbourhoods-bucaramanga/"
+  to   = "/bucaramanga/real-estate/best-neighborhoods-bucaramanga/"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from = "/barranquilla/real-estate/best-neighbourhoods-barranquilla/"
+  to   = "/barranquilla/real-estate/best-neighborhoods-barranquilla/"
+  status = 301
+  force  = true
+
+# ──────────────────────────────────────────────────────────────────────────────
+
 [[headers]]
   for = "/*"
   [headers.values]

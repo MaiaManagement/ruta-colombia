@@ -4,6 +4,9 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Terms of Service | Ruta Colombia',
   description: 'Terms of Service for Ruta Colombia. Please review our terms and conditions before using our website.',
+  alternates: {
+    canonical: 'https://ruta-colombia.com/terms/',
+  },
 };
 
 export default function TermsOfService() {
