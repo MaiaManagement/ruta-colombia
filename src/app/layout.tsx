@@ -103,6 +103,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <Script src="/consent-banner.js" strategy="afterInteractive" />
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-H5TBPYHRWE" strategy="afterInteractive" />
         <Script id="ga4-init" strategy="afterInteractive">{`
   window.dataLayer = window.dataLayer || [];
@@ -118,7 +119,6 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2469196723812841"
           crossOrigin="anonymous"
         />
-        <Script src="/consent-banner.js" strategy="afterInteractive" />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
