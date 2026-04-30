@@ -10,7 +10,7 @@ import AdSense from '@/components/AdSense';
 export const metadata: Metadata = {
   title: 'Ruta Colombia — Colombia Travel Guide & Expat Resource',
   description:
-    'Your definitive Colombia travel guide. Expert city guides for Medellín, Cartagena, Santa Marta, Bogotá, Cali, and more — covering things to do, living costs, neighbourhoods, restaurants, and expat life.',
+    'Colombia travel and expat guides for Medellín, Cartagena, Santa Marta, Bogotá, Cali, and more: things to do, living costs, neighbourhoods, and restaurants.',
   alternates: {
     canonical: 'https://ruta-colombia.com/',
   },
@@ -49,6 +49,8 @@ const cartagenaSlides = [
 
 export default function HomePage() {
   const medellinArticles = getAllArticlesByCity('medellin');
+  const medellinCategorySlugs = new Set(medellinArticles.map((article) => article.category));
+  const medellinCategories = categories.filter((cat) => medellinCategorySlugs.has(cat.slug));
   const medellinFeatured = getFeaturedArticlesByCity('medellin');
   const santaMartaFeatured = getFeaturedArticlesByCity('santa-marta');
   const bogotaFeatured = getFeaturedArticlesByCity('bogota');
@@ -103,7 +105,7 @@ export default function HomePage() {
 
           {/* Quick category links */}
           <div className="flex flex-wrap justify-center gap-2">
-            {categories.slice(0, 5).map((cat) => (
+            {medellinCategories.slice(0, 5).map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/medellin/${cat.slug}/`}
@@ -177,7 +179,7 @@ export default function HomePage() {
             <div className="h-px flex-1 bg-gray-200" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
-            {categories.map((cat) => (
+            {medellinCategories.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/medellin/${cat.slug}/`}

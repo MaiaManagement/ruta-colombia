@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from '@/components/Link';
 import type { Metadata } from 'next';
 import ArticleCard from '@/components/ArticleCard';
-import { getArticlesByCityAndCategory } from '@/lib/articles';
+import { getAllArticlesByCity, getArticlesByCityAndCategory } from '@/lib/articles';
 import { categories } from '@/lib/categories';
 import { cities } from '@/lib/cities';
 
@@ -13,12 +13,15 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  return cities.flatMap((city) =>
-    categories.map((category) => ({
+  return cities.flatMap((city) => {
+    const availableCategorySlugs = new Set(getAllArticlesByCity(city.slug).map((article) => article.category));
+    return categories
+      .filter((category) => availableCategorySlugs.has(category.slug))
+      .map((category) => ({
       city: city.slug,
       category: category.slug,
-    })),
-  );
+    }));
+  });
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -64,9 +67,6 @@ export default async function CategoryPage({ params }: Props) {
 
   const articles = getArticlesByCityAndCategory(citySlug, categorySlug);
 
-  // FIX: Empty / coming-soon category pages now show a meaningful message
-  // with navigation back to the parent city page and the homepage,
-  // instead of a blank "Coming soon" screen with no affordance.
   if (articles.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 text-center">
@@ -85,12 +85,10 @@ export default async function CategoryPage({ params }: Props) {
         </h1>
 
         <p className="text-gray-500 text-lg mb-2">
-          <span className="font-semibold text-gray-700">Próximamente</span> — estamos trabajando en
-          este contenido.
+          No published guides are available in this topic yet.
         </p>
         <p className="text-gray-400 text-base mb-10">
-          Our {category.name.toLowerCase()} guides for {city.name} are being written by local
-          experts and will be published soon. Check back shortly!
+          Browse the active {city.name} guides below or return to the city overview.
         </p>
 
         <div className="flex flex-wrap justify-center gap-4">

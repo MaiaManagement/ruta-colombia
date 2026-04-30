@@ -2,18 +2,26 @@ import type { Metadata } from 'next';
 import Link from '@/components/Link';
 
 export const metadata: Metadata = {
-  title: 'About Ruta Colombia — Colombia Travel Guide & Expat Resource',
+  title: 'About Ruta Colombia — Travel & Expat Guides',
   description:
     'Ruta Colombia is the definitive Colombia travel and expat guide, produced by The Maia Group. Expert local knowledge on living, working, investing, and exploring Colombia.',
   alternates: {
     canonical: 'https://ruta-colombia.com/about/',
   },
   openGraph: {
-    title: 'About Ruta Colombia — Colombia Travel Guide & Expat Resource',
+    title: 'About Ruta Colombia — Travel & Expat Guides',
     description:
       'Ruta Colombia is the definitive Colombia travel and expat guide, produced by The Maia Group. Expert local knowledge on living, working, investing, and exploring Colombia.',
     url: 'https://ruta-colombia.com/about/',
     type: 'website',
+    images: [{ url: 'https://ruta-colombia.com/og-image.jpg', width: 1200, height: 630, alt: 'About Ruta Colombia' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Ruta Colombia — Travel & Expat Guides',
+    description:
+      'Expert local knowledge on living, working, investing, and exploring Colombia.',
+    images: ['https://ruta-colombia.com/og-image.jpg'],
   },
 };
 
@@ -56,7 +64,7 @@ export default function AboutPage() {
             — The Caribbean coast gem, with beaches, the Sierra Nevada, and a growing international scene.
           </li>
           <li>
-            <strong>Cartagena, Bogotá, Cali</strong> — Coming soon.
+            <strong>Cartagena, Bogotá, Cali, Barranquilla, and Bucaramanga</strong> — city guides and practical topic coverage across Colombia.
           </li>
         </ul>
 
