@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Guía de viaje Colombia 2026 — escrita por quienes viven aquí. Itinerarios reales, destinos verificados y consejos locales para Medellín, Cartagena, Santa Marta, Bogotá y Tayrona.">
   <meta name="keywords" content="guía de viaje Colombia, viaje Colombia 2026, qué hacer en Colombia, Colombia turismo, itinerario Colombia, Colombia destinos, Medellín, Cartagena, Santa Marta, Bogotá, Tayrona, vivir en Colombia, expat Colombia">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="geo.region" content="CO">
   <meta property="og:title" content="Ruta Colombia — Guía de Viaje Colombia 2026 | Travel Guide & Expat Resource">
   <meta property="og:description" content="Tu guía definitiva para viajar y vivir en Colombia. Destinos, itinerarios, expat tips y guías locales para Medellín, Cartagena, Santa Marta, Bogotá y más.">
@@ -575,23 +575,4 @@ export default function Footer() {
       manageCookiesLink.addEventListener('click', (e) => {
         e.preventDefault();
         if (window.consentBanner && window.consentBanner.show) {
-          window.consentBanner.show();
-        }
-      });
-    }
-    
-    // Scroll indicator fade on scroll
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-      window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY;
-        const opacity = Math.max(0, 1 - (scrollPosition / 200));
-        scrollIndicator.style.opacity = opacity;
-        scrollIndicator.style.pointerEvents = opacity > 0 ? 'auto' : 'none';
-      });
-    }
-  </script>
-
-
-</body>
-</html>
+          window.consentBa
