@@ -5,6 +5,9 @@ import { useState } from 'react';
 import { categories } from '@/lib/categories';
 import { cities } from '@/lib/cities';
 
+const primaryMedellinCategorySlugs = new Set(['real-estate', 'food-drink', 'things-to-do']);
+const primaryMedellinCategories = categories.filter((cat) => primaryMedellinCategorySlugs.has(cat.slug));
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cityMenuOpen, setCityMenuOpen] = useState(false);
@@ -90,7 +93,7 @@ export default function Header() {
         {/* Desktop category nav */}
         <nav className="hidden md:flex items-center gap-1 py-2 overflow-x-auto">
           <span className="text-xs text-gray-500 font-semibold uppercase tracking-wider mr-2 shrink-0">Explore:</span>
-          {categories.map((cat) => (
+          {primaryMedellinCategories.map((cat) => (
             <Link
               key={cat.slug}
               href={`/medellin/${cat.slug}/`}
@@ -131,7 +134,7 @@ export default function Header() {
           <div className="mb-3">
             <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-2 px-3">Categories</p>
             <nav className="flex flex-col gap-0.5">
-              {categories.map((cat) => (
+              {primaryMedellinCategories.map((cat) => (
                 <Link
                   key={cat.slug}
                   href={`/medellin/${cat.slug}/`}

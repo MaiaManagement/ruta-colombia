@@ -15,14 +15,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  const cityCategoryUrls = cities.flatMap((city) =>
-    categories.map((cat) => ({
-      url: `${baseUrl}/${city.slug}/${cat.slug}/`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }))
-  );
+  const cityCategoryUrls = cities.flatMap((city) => {
+    const availableCategorySlugs = new Set(getAllArticlesByCity(city.slug).map((article) => article.category));
+    return categories
+      .filter((cat) => availableCategorySlugs.has(cat.slug))
+      .map((cat) => ({
+        url: `${baseUrl}/${city.slug}/${cat.slug}/`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }));
+  });
 
   const articleUrls = cities.flatMap((city) =>
     getAllArticlesByCity(city.slug).map((article) => ({

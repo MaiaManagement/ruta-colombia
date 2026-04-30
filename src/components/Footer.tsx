@@ -3,6 +3,9 @@ import AdSense from '@/components/AdSense';
 import { categories } from '@/lib/categories';
 import { cities } from '@/lib/cities';
 
+const primaryMedellinCategorySlugs = new Set(['real-estate', 'food-drink', 'things-to-do']);
+const primaryMedellinCategories = categories.filter((cat) => primaryMedellinCategorySlugs.has(cat.slug));
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -60,7 +63,7 @@ export default function Footer() {
           <div className="md:col-span-1">
             <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Categories</h4>
             <ul className="space-y-2">
-              {categories.map((cat) => (
+              {primaryMedellinCategories.map((cat) => (
                 <li key={cat.slug}>
                   <Link
                     href={`/medellin/${cat.slug}/`}
