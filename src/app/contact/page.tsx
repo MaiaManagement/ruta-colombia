@@ -14,12 +14,16 @@ export default function ContactPage() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    const body = new URLSearchParams();
+    data.forEach((value, key) => {
+      body.append(key, String(value));
+    });
 
     try {
-      const response = await fetch('/', {
+      const response = await fetch(form.getAttribute('action') || '/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+        body: body.toString(),
       });
 
       if (!response.ok) {
@@ -74,12 +78,19 @@ export default function ContactPage() {
         <form
           name="contact"
           method="POST"
+          action="/"
           data-netlify="true"
+          netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
           className="space-y-6"
         >
           {/* Required hidden field for Netlify Forms */}
           <input type="hidden" name="form-name" value="contact" />
+          <p hidden>
+            <label>
+              Do not fill this out: <input name="bot-field" autoComplete="off" tabIndex={-1} />
+            </label>
+          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>

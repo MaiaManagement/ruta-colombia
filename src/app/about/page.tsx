@@ -92,13 +92,13 @@ export default function AboutPage() {
             — Professional nautical services on the Colombian Caribbean
           </li>
           <li>
-            <a href="https://bevidabotanicas.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://be-vida.com" target="_blank" rel="noopener noreferrer">
               <strong>Be Vida Botánicas</strong>
             </a>{' '}
             — Artisan RTD cocktails made with Colombian botanicals
           </li>
           <li>
-            <a href="https://llevalleva.co" target="_blank" rel="noopener noreferrer">
+            <a href="https://lleva-lleva.com" target="_blank" rel="noopener noreferrer">
               <strong>LlevaLleva</strong>
             </a>{' '}
             — Colombia's classifieds and jobs marketplace
