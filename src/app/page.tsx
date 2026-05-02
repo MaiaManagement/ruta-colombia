@@ -6,6 +6,7 @@ import { getAllArticlesByCity, getFeaturedArticlesByCity, getAllArticles } from 
 import { categories } from '@/lib/categories';
 import { cities } from '@/lib/cities';
 import AdSense from '@/components/AdSense';
+import BudgetCalculator from '@/components/BudgetCalculator';
 
 export const metadata: Metadata = {
   title: 'Ruta Colombia — Colombia Travel Guide & Expat Resource',
@@ -143,6 +144,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <BudgetCalculator />
 
       {/* Medellín section — carousel + featured articles */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
